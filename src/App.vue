@@ -1,12 +1,37 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/sign-up">Signup</router-link>
+      <template v-if="!isLoggedIn">
+        <router-link to="/login">Login</router-link>
+        |
+        <router-link to="/sign-up">Signup</router-link>
+      </template>
+      <span v-else @click="signOut">Sign out</span>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+  name: 'App',
+  computed: mapGetters(['isLoggedIn']),
+  methods: mapActions(['signOut']),
+  watch: {
+    isLoggedIn(val) {
+      // eslint-disable-next-line no-unused-expressions
+      if (val) {
+        this.$router.push('/');
+      } else {
+        this.$router.push('/login');
+      }
+    },
+  },
+};
+
+</script>
 
 <style>
 #app {

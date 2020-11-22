@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import {
-  MdCard, MdField, MdButton,
+  MdButton,
+  MdCard,
+  MdContent,
+  MdField,
+  MdIcon,
+  MdRipple,
+  MdTable,
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
@@ -16,6 +22,10 @@ Vue.config.productionTip = false;
 Vue.use(MdCard);
 Vue.use(MdField);
 Vue.use(MdButton);
+Vue.use(MdContent);
+Vue.use(MdTable);
+Vue.use(MdRipple);
+Vue.use(MdIcon);
 Vue.use(VueToast);
 
 let app;
