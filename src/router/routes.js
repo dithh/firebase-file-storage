@@ -1,10 +1,13 @@
-import Home from '@/views/Home.vue';
+import UserDashboard from '@/views/UserDashboard.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'UserDashboard',
+    component: UserDashboard,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/login',
