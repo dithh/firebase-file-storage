@@ -21,6 +21,12 @@ export default new Vuex.Store({
     SAVE_USER_FILES(state, payload) {
       state.files = payload;
     },
+    DELETE_USER_FILE(state, payload) {
+      debugger;
+      const files = [...state.files];
+      files.splice(payload, 1);
+      state.files = files;
+    },
   },
   actions: {
     async login({ commit }, { email, password }) {
@@ -57,6 +63,9 @@ export default new Vuex.Store({
         items[index].size = data.size;
       });
       commit(MUTATIONS.SAVE_USER_FILES, items);
+    },
+    async deleteUserFile({ commit }, index) {
+      commit(MUTATIONS.DELETE_USER_FILE, index);
     },
   },
   getters: {
