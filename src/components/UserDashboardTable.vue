@@ -8,7 +8,7 @@
       <md-table-head>Size</md-table-head>
       <md-table-head></md-table-head>
     </md-table-row>
-    <md-table-row v-for="(file,index) in files" :key="file.fullName">
+    <md-table-row v-for="(file,index) in userFiles" :key="file.fullName">
       <md-table-cell>{{file.name}}</md-table-cell>
       <md-table-cell>{{file.size}}</md-table-cell>
       <md-table-cell>
@@ -28,7 +28,9 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'UserDashboardTable',
-  computed: mapState(['files']),
+  computed: mapState({
+    userFiles: (state) => state.files.userFiles,
+  }),
   methods: {
     ...mapActions(['deleteUserFile']),
     async downloadFile(file) {
@@ -44,10 +46,9 @@ export default {
       }
     },
     async deleteFile(file, index) {
-      debugger;
       try {
         await file.delete();
-        this.deleteUserFile(index);
+        await this.deleteUserFile({ file, index });
         this.$toast.success('File deleted');
       } catch ({ message }) {
         this.$toast.error(message || 'Unkown error ocured');

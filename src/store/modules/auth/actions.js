@@ -25,8 +25,8 @@ export default {
     try {
       await auth.signOut();
       commit(MUTATIONS.SIGN_OUT);
-    } catch (error) {
-      console.log(error);
+    } catch ({ message }) {
+      Vue.prototype.$toast.error(message || 'Unknown error');
     }
   },
 };

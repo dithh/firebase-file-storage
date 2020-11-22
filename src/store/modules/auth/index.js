@@ -7,6 +7,7 @@ const state = {
 };
 
 export default {
+  namespaced: false,
   actions,
   mutations,
   state,
