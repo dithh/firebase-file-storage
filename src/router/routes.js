@@ -2,11 +2,7 @@ import UserDashboard from '@/views/UserDashboard.vue';
 import store from '@/store';
 
 const loginAndSignUpRouteGuard = (to, from, next) => {
-  if (store.getters.isLoggedIn) {
-    next('/');
-  } else {
-    next();
-  }
+  store.getters.isLoggedIn ? next('/') : next();
 };
 
 const routes = [

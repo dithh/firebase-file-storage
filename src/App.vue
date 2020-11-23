@@ -2,11 +2,10 @@
   <div id="app">
     <div id="nav">
       <template v-if="!isLoggedIn">
-        <router-link to="/login">Login</router-link>
-        |
-        <router-link to="/sign-up">Signup</router-link>
+        <md-button to="/login">Login</md-button>
+        <md-button to="/sign-up">Signup</md-button>
       </template>
-      <span v-else @click="signOut">Sign out</span>
+      <md-button v-else to="" type="button"  @click="signOut">Sign out</md-button>
     </div>
     <router-view/>
   </div>
@@ -21,12 +20,8 @@ export default {
   methods: mapActions(['signOut']),
   watch: {
     isLoggedIn(val) {
-      // eslint-disable-next-line no-unused-expressions
-      if (val) {
-        this.$router.push('/');
-      } else {
-        this.$router.push('/login');
-      }
+      const route = val ? '/' : '/login';
+      this.$router.push(route);
     },
   },
 };
@@ -38,12 +33,12 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
+  text-align: center;
 }
 
 #nav a {

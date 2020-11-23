@@ -1,25 +1,29 @@
 <template>
   <md-table md-card>
+
     <md-table-toolbar>
-      <h1 class="md-title">Users</h1>
+      <h1 class="md-title md-layout md-alignment-top-left">Users</h1>
     </md-table-toolbar>
+
     <md-table-row>
       <md-table-head>Name</md-table-head>
       <md-table-head>Size</md-table-head>
       <md-table-head></md-table-head>
     </md-table-row>
+
     <md-table-row v-for="(file,index) in userFiles" :key="file.fullName">
       <md-table-cell>{{file.name}}</md-table-cell>
-      <md-table-cell>{{file.size}}</md-table-cell>
+      <md-table-cell>{{file.size | convertBytes}}</md-table-cell>
       <md-table-cell>
-              <span @click="deleteFile(file,index)">
+              <md-button @click="deleteFile(file,index)" class="md-icon-button">
                 <md-icon>close</md-icon>
-              </span>
-        <span @click="downloadFile(file)">
+              </md-button>
+            <md-button @click="downloadFile(file)" class="md-icon-button">
                 <md-icon >download</md-icon>
-              </span>
+            </md-button>
       </md-table-cell>
     </md-table-row>
+
   </md-table>
 </template>
 
@@ -45,14 +49,18 @@ export default {
         this.$toast.error(message || 'Unkown error ocured');
       }
     },
-    async deleteFile(file, index) {
-      try {
-        await file.delete();
-        await this.deleteUserFile({ file, index });
-        this.$toast.success('File deleted');
-      } catch ({ message }) {
-        this.$toast.error(message || 'Unkown error ocured');
-      }
+    deleteFile(file, index) {
+      this.deleteUserFile({ index, file });
+    },
+  },
+  filters: {
+    convertBytes(bytes) {
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+      return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
     },
   },
 };

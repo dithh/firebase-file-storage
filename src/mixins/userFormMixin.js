@@ -10,10 +10,18 @@ export default {
       return this.validateEmail() && this.validatePassword();
     },
     validateEmail() {
-      return new RegExp(/\S+@\S+\.\S+/).test(this.email);
+      if (new RegExp(/\S+@\S+\.\S+/).test(this.email)) {
+        return true;
+      }
+      this.$toast.error('Email incorect');
+      return false;
     },
     validatePassword() {
-      return this.password.length > 7;
+      if (this.password.length) {
+        return true;
+      }
+      this.$toast.error('Please enter password');
+      return false;
     },
   },
 };

@@ -3,6 +3,7 @@ import {
   MdButton,
   MdCard,
   MdContent,
+  MdDialog,
   MdEmptyState,
   MdField,
   MdIcon,
@@ -28,6 +29,7 @@ Vue.use(MdTable);
 Vue.use(MdRipple);
 Vue.use(MdEmptyState);
 Vue.use(MdIcon);
+Vue.use(MdDialog);
 Vue.use(VueToast);
 
 let app;

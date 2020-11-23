@@ -1,8 +1,9 @@
 <template>
   <form class="md-layout md-alignment-top-center" @submit.prevent="submitForm">
+
     <md-card class="md-layout-item md-size-50 md-small-size-100">
       <md-card-header>
-        <div class="md-title">Users</div>
+        <div class="md-title md-layout md-alignment-top-left">Users</div>
       </md-card-header>
 
       <md-card-content>
@@ -17,10 +18,12 @@
           </md-field>
         </div>
       </md-card-content>
+
       <md-card-actions>
         <md-button type="submit" class="md-primary">Sign in</md-button>
       </md-card-actions>
     </md-card>
+
   </form>
 </template>
 
@@ -36,11 +39,8 @@ export default {
     ...mapActions(['login']),
     submitForm() {
       const { email, password } = this;
-      if (this.validateForm()) {
-        this.login({ email, password });
-      } else {
-        this.$toast.error('Form invalid');
-      }
+      const isValid = this.validateForm();
+      isValid && this.login({ email, password });
     },
   },
 };

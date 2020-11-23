@@ -3,9 +3,14 @@ export default {
     state.userFiles = payload;
   },
   DELETE_USER_FILE(state, payload) {
-    debugger;
-    const files = [...state.files];
+    const files = [...state.userFiles];
     files.splice(payload, 1);
     state.userFiles = files;
+  },
+  SAVE_USER_SINGLE_FILE(state, payload) {
+    state.userFiles.push(payload);
+  },
+  CLEAR_USER_FILES(state) {
+    state.userFiles = [];
   },
 };
