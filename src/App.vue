@@ -13,6 +13,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import ROUTES from '@/consts/routes';
 
 export default {
   name: 'App',
@@ -20,7 +21,7 @@ export default {
   methods: mapActions(['signOut']),
   watch: {
     isLoggedIn(val) {
-      const route = val ? '/' : '/login';
+      const route = val ? ROUTES.USER_DASHBOARD : ROUTES.LOGIN;
       this.$router.push(route);
     },
   },

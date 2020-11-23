@@ -15,3 +15,9 @@ export const createLink = (fileName, blob) => {
   link.href = URL.createObjectURL(blob);
   return link;
 };
+
+/* eslint-disable import/prefer-default-export */
+export const createUserFilesReferencePath = (uid) => `files/${uid}`;
+
+/* eslint-disable import/prefer-default-export */
+export const createFileReferencePath = (uid, fileName) => `files/${uid}/${fileName}`;

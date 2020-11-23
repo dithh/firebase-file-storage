@@ -1,13 +1,14 @@
 import UserDashboard from '@/views/UserDashboard.vue';
+import ROUTES from '@/consts/routes';
 import store from '@/store';
 
 const loginAndSignUpRouteGuard = (to, from, next) => {
-  store.getters.isLoggedIn ? next('/') : next();
+  store.getters.isLoggedIn ? next(ROUTES.LOGIN) : next();
 };
 
 const routes = [
   {
-    path: '/',
+    path: ROUTES.USER_DASHBOARD,
     name: 'UserDashboard',
     component: UserDashboard,
     meta: {
@@ -15,13 +16,13 @@ const routes = [
     },
   },
   {
-    path: '/login',
+    path: ROUTES.LOGIN,
     name: 'Login',
     component: () => import('../views/Login.vue'),
     beforeEnter: loginAndSignUpRouteGuard,
   },
   {
-    path: '/sign-up',
+    path: ROUTES.SIGN_UP,
     name: 'Sign up',
     component: () => import('../views/SignUp.vue'),
     beforeEnter: loginAndSignUpRouteGuard,

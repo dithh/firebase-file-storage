@@ -2,12 +2,14 @@ import Vue from 'vue';
 
 import { storage } from '@/firebase/firebase';
 import MUTATIONS from '@/consts/mutations';
+import { createFileReferencePath, createUserFilesReferencePath } from '@/utils/utils';
 
 export default {
   async getUserFiles({ commit, rootState }) {
     try {
       const userUid = rootState.auth.user.uid;
-      const response = await storage.ref().child(`files/${userUid}`)
+      const userFilesReferencePath = createUserFilesReferencePath(userUid);
+      const response = await storage.ref().child(userFilesReferencePath)
         .listAll();
       const { items } = response;
       const promises = items.map((item) => item.getMetadata());
@@ -31,7 +33,8 @@ export default {
   },
   uploadUserFile({ commit, rootState }, { fileList, fileName }) {
     const userUid = rootState.auth.user.uid;
-    const fileRef = storage.ref().child(`files/${userUid}/${fileName}`);
+    const fileReferencePath = createFileReferencePath(userUid, fileName);
+    const fileRef = storage.ref().child(fileReferencePath);
     const parsedFile = new File(fileList, fileName, { type: fileList[0].type });
     const upload = fileRef.put(parsedFile);
     upload.on('state_changed', () => {
