@@ -2,7 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 
-// firebase init - add your own config here
 const firebaseConfig = {
   apiKey: 'AIzaSyBdBueC7payb8xFguBFOtcN7vVPN9NIcsg',
   authDomain: 'file-storage-3d408.firebaseapp.com',
