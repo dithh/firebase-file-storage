@@ -15,6 +15,7 @@ import 'vue-material/dist/theme/default.css';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';
 
+import MUTATIONS from '@/consts/mutations';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -33,12 +34,14 @@ Vue.use(MdDialog);
 Vue.use(VueToast);
 
 let app;
-auth.onAuthStateChanged(() => {
+auth.onAuthStateChanged((user) => {
   if (!app) {
     app = new Vue({
       router,
       store,
       render: (h) => h(App),
     }).$mount('#app');
+  } if (user) {
+    store.commit(MUTATIONS.LOGIN, user);
   }
 });
