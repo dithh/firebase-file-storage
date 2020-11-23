@@ -1,5 +1,7 @@
 # fb-file-storage
-
+```
+Project made to showcase some Vue.js skills
+```
 ## Project setup
 ```
 npm install

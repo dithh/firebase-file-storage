@@ -31,7 +31,6 @@ export default {
   },
   uploadUserFile({ commit, rootState }, { fileList, fileName }) {
     const userUid = rootState.auth.user.uid;
-    console.log(fileList[0].type);
     const fileRef = storage.ref().child(`files/${userUid}/${fileName}`);
     const parsedFile = new File(fileList, fileName, { type: fileList[0].type });
     const upload = fileRef.put(parsedFile);
@@ -39,9 +38,9 @@ export default {
     }, ({ message }) => {
       Vue.prototype.$toast.error(message || 'Unknown error occured');
     }, async () => {
-      Vue.prototype.$toast.success('File upload successfull');
       const uploadedFileRef = upload.snapshot.ref;
       const metaData = await uploadedFileRef.getMetadata();
+      Vue.prototype.$toast.success('File upload successfull');
       uploadedFileRef.size = metaData.size;
       commit(MUTATIONS.SAVE_USER_SINGLE_FILE, uploadedFileRef);
     });
