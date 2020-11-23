@@ -19,7 +19,7 @@
         </form>
       </md-dialog-content>
       <md-dialog-actions>
-        <md-button @click="showDialog = false" class="md-primary">Close</md-button>
+        <md-button @click="closeDialog" class="md-primary">Close</md-button>
         <md-button @click="validateForm" class="md-primary">Upload</md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -56,6 +56,12 @@ export default {
     },
     updateFile(fileList) {
       this.fileList = fileList;
+    },
+    closeDialog() {
+      this.showDialog = false;
+      this.fileName = '';
+      this.fileList = '';
+      this.file = '';
     },
   },
 };

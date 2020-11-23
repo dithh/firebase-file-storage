@@ -29,6 +29,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { SIZES } from '@/consts/fileSizes';
+import { createLink } from '@/utils/utils';
 
 export default {
   name: 'UserDashboardTable',
@@ -40,15 +42,21 @@ export default {
     async downloadFile(file) {
       try {
         const downloadUrl = await file.getDownloadURL();
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.setAttribute('download', file.name);
-        link.setAttribute('target', '_blank');
-        link.click();
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = () => {
+          const blob = xhr.response;
+          const link = createLink(file.name, blob);
+          link.click();
+          URL.revokeObjectURL(link.href);
+        };
+        xhr.open('GET', downloadUrl);
+        xhr.send();
       } catch ({ message }) {
         this.$toast.error(message || 'Unkown error ocured');
       }
     },
+
     deleteFile(file, index) {
       this.deleteUserFile({ index, file });
     },
@@ -56,9 +64,8 @@ export default {
   filters: {
     convertBytes(bytes) {
       const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
+      return `${parseFloat((bytes / k ** i).toFixed(2))} ${SIZES[i]}`;
     },
   },
 };
