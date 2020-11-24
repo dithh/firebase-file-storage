@@ -1,6 +1,9 @@
 # fb-file-storage
 ```
-Project made to showcase some Vue.js skills
+Personal file storage with user specific files.
+Project made to showcase some Vue.js skill.
+
+Live demo: https://file-storage-3d408.web.app/#/login
 ```
 ## Project setup
 ```
@@ -21,6 +24,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
