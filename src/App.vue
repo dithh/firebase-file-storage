@@ -2,12 +2,23 @@
   <div id="app">
     <div id="nav">
       <template v-if="!isLoggedIn">
-        <md-button to="/login">Login</md-button>
-        <md-button to="/sign-up">Signup</md-button>
+        <md-button to="/login">
+          Login
+        </md-button>
+        <md-button to="/sign-up">
+          Signup
+        </md-button>
       </template>
-      <md-button v-else to="" type="button"  @click="signOut">Sign out</md-button>
+      <md-button
+        v-else
+        to=""
+        type="button"
+        @click="signOut"
+      >
+        Sign out
+      </md-button>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -18,13 +29,13 @@ import ROUTES from '@/consts/routes';
 export default {
   name: 'App',
   computed: mapGetters(['isLoggedIn']),
-  methods: mapActions(['signOut']),
   watch: {
     isLoggedIn(val) {
       const route = val ? ROUTES.USER_DASHBOARD : ROUTES.LOGIN;
       this.$router.push(route);
     },
   },
+  methods: mapActions(['signOut']),
 };
 
 </script>

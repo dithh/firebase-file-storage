@@ -1,17 +1,15 @@
 <template>
   <div class="home md-alignment-top-left">
-
-    <user-dashboard-table v-if="userFiles.length">
-    </user-dashboard-table>
+    <user-dashboard-table v-if="userFiles.length" />
 
     <md-empty-state
       v-else
       md-icon="devices_other"
       md-label="No files uploaded"
-      md-description="Upload file(s) to see it here.">
-    </md-empty-state>
+      md-description="Upload file(s) to see it here."
+    />
 
-    <upload-file-dialog></upload-file-dialog>
+    <upload-file-dialog />
   </div>
 </template>
 
@@ -34,9 +32,9 @@ export default {
   computed: mapState({
     userFiles: (state) => state.files.userFiles,
   }),
-  methods: mapActions(['getUserFiles']),
   mounted() {
     this.getUserFiles();
   },
+  methods: mapActions(['getUserFiles']),
 };
 </script>

@@ -6,24 +6,46 @@
         <form class="md-layout md-alignment-top-center">
           <md-field>
             <label for="file-name">Name</label>
-            <md-input type="text" v-model="fileName" id="file-name" name="file-name"/>
+            <md-input
+              id="file-name"
+              v-model="fileName"
+              type="text"
+              name="file-name"
+            />
           </md-field>
           <md-field>
             <label for="file">Select a file </label>
-            <md-file @md-change="updateFile"
-                     v-model="file"
-                     type="text"
-                     id="file"
-                     name="file"/>
+            <md-file
+              id="file"
+              v-model="file"
+              type="text"
+              name="file"
+              @md-change="updateFile"
+            />
           </md-field>
         </form>
       </md-dialog-content>
       <md-dialog-actions>
-        <md-button @click="closeDialog" class="md-primary">Close</md-button>
-        <md-button @click="validateForm" class="md-primary">Upload</md-button>
+        <md-button
+          class="md-primary"
+          @click="closeDialog"
+        >
+          Close
+        </md-button>
+        <md-button
+          class="md-primary"
+          @click="validateForm"
+        >
+          Upload
+        </md-button>
       </md-dialog-actions>
     </md-dialog>
-    <md-button class="md-primary md-raised" @click="showDialog = true">Upload file</md-button>
+    <md-button
+      class="md-primary md-raised"
+      @click="showDialog = true"
+    >
+      Upload file
+    </md-button>
   </div>
 </template>
 
@@ -43,13 +65,13 @@ export default {
   methods: {
     ...mapActions(['uploadUserFile']),
     validateForm() {
-      const { fileName, fileList } = this;
+      const { fileList } = this;
+      let { fileName } = this;
       if (fileName && fileList) {
+        const fileExtension = this.file.split('.').pop();
+        fileName = `${fileName}.${fileExtension}`;
         this.uploadUserFile({ fileName, fileList });
-        this.showDialog = false;
-        this.fileName = '';
-        this.fileList = '';
-        this.file = '';
+        this.closeDialog();
       } else {
         this.$toast.error('Fill up the form');
       }
