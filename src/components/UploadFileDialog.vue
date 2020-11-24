@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="md-layout md-alignment-center">
     <md-dialog :md-active.sync="showDialog">
       <md-dialog-title>Upload file</md-dialog-title>
       <md-dialog-content>

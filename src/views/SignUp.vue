@@ -104,7 +104,7 @@ export default {
       if (requiredCharactersCount > 1) {
         return true;
       }
-      this.$toast.error('Password too weak');
+      this.$toast.error('Password too weak. Password should contain at least two of those:lower case letters, upper case letters, numbers, special characters.');
       return false;
     },
     submitForm() {
